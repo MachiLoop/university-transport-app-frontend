@@ -49,13 +49,13 @@ import wallet from "../assets/icons/wallet.png";
 import walletFilled from "../assets/icons/walletFilled.png";
 import x from "../assets/icons/x.png";
 import videoCamera from "../assets/icons/videoCamera.png";
+import message from "../assets/icons/message.png";
 
 export default {
   add,
   battery,
   bell,
   camera,
-  profile,
   camera2,
   checkbox,
   checkmark,
@@ -103,4 +103,5 @@ export default {
   warning,
   warning2,
   x,
+  message,
 };

@@ -6,6 +6,7 @@ const index = () => {
   return (
     <View>
       <Text>Hello</Text>
+      <Link href="/home">Go to Home</Link>
     </View>
   );
 };
