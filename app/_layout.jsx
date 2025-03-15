@@ -31,9 +31,26 @@ const RootLayout = () => {
   }
 
   return (
-    <View>
-      <Text>Hello</Text>
-    </View>
+    <Stack>
+      <Stack.Screen
+        name="index"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="text"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="(tabs)"
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack>
   );
 };
 

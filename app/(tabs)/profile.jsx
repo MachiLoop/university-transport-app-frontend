@@ -1,13 +1,12 @@
 import { View, Text } from "react-native";
-import { Link } from "expo-router";
 import React from "react";
 
-const index = () => {
+const profile = () => {
   return (
     <View>
-      <Text>Hello</Text>
+      <Text>profile</Text>
     </View>
   );
 };
 
-export default index;
+export default profile;
