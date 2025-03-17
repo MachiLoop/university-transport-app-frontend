@@ -10,6 +10,10 @@ module.exports = {
         info: "#B8B8B8",
         shadeBlack: "#121212",
         shadeWhite: "#FFFFFF",
+        contentTertiary: "#5A5A5A",
+        contentSecondary: "#414141",
+        contentDisabled: "#B8B8B8",
+        contentPrimary: "#2A2A2A",
         primary: {
           DEFAULT: "#08B783",
           900: "#005932",
