@@ -14,6 +14,7 @@ import Svg, { Circle } from "react-native-svg";
 import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router"; // Import navigation
 import slides from "../data/slide";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const { width, height } = Dimensions.get("window");
 
@@ -28,7 +29,7 @@ const Index = () => {
   const totalSlides = slides.length;
 
   const skip = () => {
-    router.replace("/home");
+    router.replace("/sign-in");
   };
 
   const moveToNextSlide = () => {
@@ -52,7 +53,7 @@ const Index = () => {
     } else {
       // Wait for 2 seconds before navigating on the last slide
       const timeout = setTimeout(() => {
-        router.replace("/home");
+        router.replace("/sign-in");
         // console.log("hello");
       }, 2000);
 
@@ -71,7 +72,7 @@ const Index = () => {
   });
 
   return (
-    <View className="flex-1 justify-center items-center">
+    <SafeAreaView className="flex-1 justify-center items-center">
       <FlatList
         ref={flatListRef}
         data={slides}
@@ -158,7 +159,7 @@ const Index = () => {
           <Text>Skip</Text>
         </Pressable>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
