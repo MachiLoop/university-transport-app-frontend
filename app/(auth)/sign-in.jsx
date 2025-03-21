@@ -27,6 +27,7 @@ const SignIn = () => {
         <View className="mt-10 gap-6">
           <TextInputForm
             title="Email"
+            label="Email"
             value={form.email}
             handleChangeText={(e) => setForm({ ...form, email: e })}
             placeholder="Enter your email"
@@ -36,6 +37,7 @@ const SignIn = () => {
           />
           <TextInputForm
             title="Password"
+            label="Password"
             value={form.password}
             handleChangeText={(e) => setForm({ ...form, password: e })}
             placeholder="Enter your password"

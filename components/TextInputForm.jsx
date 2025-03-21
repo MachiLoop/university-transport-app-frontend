@@ -4,6 +4,7 @@ import { icons } from "../constants";
 
 const TextInputForm = ({
   title,
+  label,
   placeholder,
   value,
   handleChangeText,
@@ -15,7 +16,7 @@ const TextInputForm = ({
 
   return (
     <View>
-      <Text className={labelStyles}>{title}</Text>
+      <Text className={labelStyles}>{label}</Text>
       <View className={inputContainerStyles}>
         <TextInput
           placeholder={placeholder}
