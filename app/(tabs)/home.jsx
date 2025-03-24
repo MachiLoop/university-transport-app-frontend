@@ -26,10 +26,10 @@ const Home = () => {
           <Text className="text-shadeWhite">Book a ride!</Text>
         </View>
         <View className="mb-10 bg-shadeWhite px-4 py-6 mx-2 rounded-xl ">
-          <Text className="text-center font-pmedium text-contentSecondary">
+          <Text className="text-center text-lg font-pmedium text-contentSecondary">
             Select Address
           </Text>
-          <View className="mb-1 gap-6 mt-3">
+          <View className="gap-2 mt-2">
             <DropdownComponent
               value={currentLocation}
               setValue={setCurrentLocation}
