@@ -5,14 +5,22 @@ import { icons } from "../../constants";
 
 const TabIcon = ({ icon, name, color }) => {
   return (
-    <View className="gap-2 flex-col items-center justify-center ">
+    <View className="gap-2 flex-col items-center justify-center">
       <Image
         source={icon}
         resizeMethod="contain"
         tintColor={color}
-        className="w-6 h-6"
+        className="w-5 h-5"
       />
-      <Text className="text-xs" style={{ color: color }}>
+      <Text
+        className="text-center w-full"
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={{
+          color: color,
+          fontSize: 10,
+        }}
+      >
         {name}
       </Text>
     </View>
@@ -28,8 +36,11 @@ const TabsLayout = () => {
           tabBarShowLabel: false,
           tabBarStyle: {
             borderTopWidth: 1,
-            height: 84,
+            height: 80,
             paddingTop: 10,
+            paddingBottom: 0,
+            justifyContent: "center",
+            alignItems: "center",
           },
         }}
       >
