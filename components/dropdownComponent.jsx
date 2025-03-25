@@ -32,6 +32,8 @@ const DropdownComponent = ({ value, setValue, label, placeholder }) => {
         maxHeight={300}
         labelField="label"
         valueField="value"
+        // valueField="label"
+        autoScroll={false}
         placeholder={!isFocus ? placeholder : "..."}
         searchPlaceholder="Search..."
         value={value}
@@ -39,6 +41,7 @@ const DropdownComponent = ({ value, setValue, label, placeholder }) => {
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
           setValue(item.value);
+          // setValue(item.label);
           setIsFocus(false);
         }}
         renderLeftIcon={() => (

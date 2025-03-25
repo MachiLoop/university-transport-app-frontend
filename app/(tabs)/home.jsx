@@ -8,6 +8,7 @@ import { getCoordinates } from "../../utils/getCoordinates";
 import MapViewComponent from "../../components/mapViewComponent";
 import { calculateDistance } from "../../utils/calculateDistance";
 import * as Location from "expo-location";
+import locations from "../../data/locations";
 import { router } from "expo-router";
 
 const Home = () => {
@@ -16,6 +17,12 @@ const Home = () => {
   const [coordinatesA, setCoordinatesA] = useState(null);
   const [coordinatesB, setCoordinatesB] = useState(null);
   const [distance, setDistance] = useState(0);
+  const [region, setRegion] = useState({
+    latitude: 7.4433, // Default center (University of Ibadan)
+    longitude: 3.9003,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  });
 
   useEffect(() => {
     console.log(currentLocation);
@@ -32,11 +39,18 @@ const Home = () => {
     })();
   }, []);
 
+  //find label of the currentlocaion and selected location
+  const currentLocationName =
+    locations.find((loc) => loc.value == currentLocation)?.name || null;
+  const destinationLocationName =
+    locations.find((loc) => loc.value == destinationLocation)?.name || null;
+
   // Fetch coordinates and calculate distance
   useEffect(() => {
     const fetchData = async () => {
-      const coordA = await getCoordinates(currentLocation);
-      const coordB = await getCoordinates(destinationLocation); // Replace with actual place name
+      console.log(currentLocationName, destinationLocationName);
+      const coordA = await getCoordinates(currentLocationName);
+      const coordB = await getCoordinates(destinationLocationName); // Replace with actual place name
       setCoordinatesA(coordA);
       setCoordinatesB(coordB);
 
@@ -47,7 +61,23 @@ const Home = () => {
           coordB.latitude,
           coordB.longitude
         );
+        console.log("distance: " + distance);
         setDistance(dist);
+
+        // Calculate center point
+        const midLat = (coordA.latitude + coordB.latitude) / 2;
+        const midLon = (coordA.longitude + coordB.longitude) / 2;
+
+        // Adjust zoom based on distance
+        const newLatitudeDelta = Math.min(Math.max(dist / 50, 0.005), 0.1);
+        const newLongitudeDelta = newLatitudeDelta * (16 / 9); // Aspect ratio adjustment
+
+        setRegion({
+          latitude: midLat,
+          longitude: midLon,
+          latitudeDelta: newLatitudeDelta,
+          longitudeDelta: newLongitudeDelta,
+        });
       }
     };
 
@@ -63,6 +93,7 @@ const Home = () => {
         distance={distance}
         coordinatesA={coordinatesA}
         coordinatesB={coordinatesB}
+        region={region}
       />
       <View style={styles.card}>
         <View className="bg-primary-700 self-start px-4 py-4 mb-3  rounded-r-md">
