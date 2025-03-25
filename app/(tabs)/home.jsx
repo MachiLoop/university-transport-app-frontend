@@ -94,6 +94,12 @@ const Home = () => {
         coordinatesA={coordinatesA}
         coordinatesB={coordinatesB}
         region={region}
+        curLocMarkerTitle={
+          locations.find((loc) => loc.value == currentLocation)?.label
+        }
+        destLocMarkerTitle={
+          locations.find((loc) => loc.value == destinationLocation)?.label
+        }
       />
       <View style={styles.card}>
         <View className="bg-primary-700 self-start px-4 py-4 mb-3  rounded-r-md">

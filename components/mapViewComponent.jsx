@@ -2,24 +2,42 @@ import { View, Text, StyleSheet } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import React from "react";
 
-const MapViewComponent = ({ distance, region, coordinatesA, coordinatesB }) => {
+const MapViewComponent = ({
+  distance,
+  region,
+  coordinatesA,
+  coordinatesB,
+  curLocMarkerTitle,
+  destLocMarkerTitle,
+}) => {
   return (
-    <MapView
-      // style={{ flex: 1 }}
-      region={region}
-      paddingAdjustmentBehavior="automatic"
-      style={StyleSheet.absoluteFillObject}
-    >
-      {coordinatesA && <Marker coordinate={coordinatesA} title="Location A" />}
-      {coordinatesB && <Marker coordinate={coordinatesB} title="Location B" />}
+    <>
       {coordinatesA && coordinatesB && (
-        <Polyline
-          coordinates={[coordinatesA, coordinatesB]}
-          strokeColor="blue"
-          strokeWidth={3}
-        />
+        <Text className="absolute top-4 left-2 z-50 font-pmedium text-lg">
+          Distance: {distance.toFixed(2)}km
+        </Text>
       )}
-    </MapView>
+      <MapView
+        // style={{ flex: 1 }}
+        region={region}
+        paddingAdjustmentBehavior="automatic"
+        style={StyleSheet.absoluteFillObject}
+      >
+        {coordinatesA && (
+          <Marker coordinate={coordinatesA} title={curLocMarkerTitle} />
+        )}
+        {coordinatesB && (
+          <Marker coordinate={coordinatesB} title={destLocMarkerTitle} />
+        )}
+        {coordinatesA && coordinatesB && (
+          <Polyline
+            coordinates={[coordinatesA, coordinatesB]}
+            strokeColor="blue"
+            strokeWidth={3}
+          />
+        )}
+      </MapView>
+    </>
   );
 };
 

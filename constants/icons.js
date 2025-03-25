@@ -50,6 +50,8 @@ import walletFilled from "../assets/icons/walletFilled.png";
 import x from "../assets/icons/x.png";
 import videoCamera from "../assets/icons/videoCamera.png";
 import message from "../assets/icons/message.png";
+import pin from "../assets/icons/pin.png";
+import pinFilled from "../assets/icons/pinFilled.png";
 
 export default {
   add,
@@ -104,4 +106,6 @@ export default {
   warning2,
   x,
   message,
+  pin,
+  pinFilled,
 };
