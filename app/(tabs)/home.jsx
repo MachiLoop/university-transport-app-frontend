@@ -35,10 +35,8 @@ const Home = () => {
   // Fetch coordinates and calculate distance
   useEffect(() => {
     const fetchData = async () => {
-      const coordA = await getCoordinates("Tedder Hall, university of ibadan");
-      const coordB = await getCoordinates(
-        "Mellanby Hall, university of ibadan"
-      ); // Replace with actual place name
+      const coordA = await getCoordinates(currentLocation);
+      const coordB = await getCoordinates(destinationLocation); // Replace with actual place name
       setCoordinatesA(coordA);
       setCoordinatesB(coordB);
 
@@ -53,8 +51,11 @@ const Home = () => {
       }
     };
 
-    fetchData();
-  }, []);
+    if (currentLocation && destinationLocation) {
+      fetchData();
+      // console.log(distance);
+    }
+  }, [currentLocation, destinationLocation]);
 
   return (
     <SafeAreaView className="flex-1 ">

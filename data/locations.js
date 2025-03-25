@@ -1,7 +1,7 @@
 const locations = [
-  { label: "Tedder", value: "1" },
-  { label: "Mellanby", value: "2" },
-  { label: "Kuti", value: "3" },
+  { label: "Tedder", value: "Lord Tedder Hall" },
+  { label: "Mellanby", value: "Kenneth Mellanby Hall" },
+  { label: "Kuti", value: "Ransome Kuti Hall" },
   { label: "Bello", value: "4" },
   { label: "Queens", value: "5" },
   { label: "Idia", value: "6" },
