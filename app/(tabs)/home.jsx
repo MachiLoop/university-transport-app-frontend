@@ -1,28 +1,24 @@
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import DropdownComponent from "../../components/dropdownComponent";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { images } from "../../constants";
 import CustomButton from "../../components/customButton";
-import { getCoordinates } from "../../utils/getCoordinates";
 import MapViewComponent from "../../components/mapViewComponent";
-import { calculateDistance } from "../../utils/calculateDistance";
 import * as Location from "expo-location";
-import locations from "../../data/locations";
+import useMap from "../../utils/customHooks/useMap";
 import { router } from "expo-router";
 
 const Home = () => {
   const [currentLocation, setCurrentLocation] = useState(null);
   const [destinationLocation, setDestinationLocation] = useState(null);
-  const [coordinatesA, setCoordinatesA] = useState(null);
-  const [coordinatesB, setCoordinatesB] = useState(null);
-  const [distance, setDistance] = useState(0);
-  const [region, setRegion] = useState({
-    latitude: 7.4433, // Default center (University of Ibadan)
-    longitude: 3.9003,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
-  });
+  const {
+    distance,
+    coordinatesA,
+    coordinatesB,
+    region,
+    curLocMarkerTitle,
+    destLocMarkerTitle,
+  } = useMap(currentLocation, destinationLocation);
 
   useEffect(() => {
     console.log(currentLocation);
@@ -39,54 +35,6 @@ const Home = () => {
     })();
   }, []);
 
-  //find label of the currentlocaion and selected location
-  const currentLocationName =
-    locations.find((loc) => loc.value == currentLocation)?.name || null;
-  const destinationLocationName =
-    locations.find((loc) => loc.value == destinationLocation)?.name || null;
-
-  // Fetch coordinates and calculate distance
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log(currentLocationName, destinationLocationName);
-      const coordA = await getCoordinates(currentLocationName);
-      const coordB = await getCoordinates(destinationLocationName); // Replace with actual place name
-      setCoordinatesA(coordA);
-      setCoordinatesB(coordB);
-
-      if (coordA && coordB) {
-        const dist = calculateDistance(
-          coordA.latitude,
-          coordA.longitude,
-          coordB.latitude,
-          coordB.longitude
-        );
-        console.log("distance: " + distance);
-        setDistance(dist);
-
-        // Calculate center point
-        const midLat = (coordA.latitude + coordB.latitude) / 2;
-        const midLon = (coordA.longitude + coordB.longitude) / 2;
-
-        // Adjust zoom based on distance
-        const newLatitudeDelta = Math.min(Math.max(dist / 50, 0.005), 0.1);
-        const newLongitudeDelta = newLatitudeDelta * (16 / 9); // Aspect ratio adjustment
-
-        setRegion({
-          latitude: midLat,
-          longitude: midLon,
-          latitudeDelta: newLatitudeDelta,
-          longitudeDelta: newLongitudeDelta,
-        });
-      }
-    };
-
-    if (currentLocation && destinationLocation) {
-      fetchData();
-      // console.log(distance);
-    }
-  }, [currentLocation, destinationLocation]);
-
   return (
     <SafeAreaView className="flex-1 ">
       <MapViewComponent
@@ -94,12 +42,8 @@ const Home = () => {
         coordinatesA={coordinatesA}
         coordinatesB={coordinatesB}
         region={region}
-        curLocMarkerTitle={
-          locations.find((loc) => loc.value == currentLocation)?.label
-        }
-        destLocMarkerTitle={
-          locations.find((loc) => loc.value == destinationLocation)?.label
-        }
+        curLocMarkerTitle={curLocMarkerTitle}
+        destLocMarkerTitle={destLocMarkerTitle}
       />
       <View style={styles.card}>
         <View className="bg-primary-700 self-start px-4 py-4 mb-3  rounded-r-md">
