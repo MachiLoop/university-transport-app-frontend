@@ -6,9 +6,11 @@ import CustomButton from "../../components/customButton";
 import MapViewComponent from "../../components/mapViewComponent";
 import * as Location from "expo-location";
 import useMap from "../../utils/customHooks/useMap";
+import useToastNotification from "../../utils/customHooks/useToastNotification";
 import { router } from "expo-router";
 
 const Home = () => {
+  const showToast = useToastNotification();
   const [currentLocation, setCurrentLocation] = useState(null);
   const [destinationLocation, setDestinationLocation] = useState(null);
   const {
@@ -34,6 +36,14 @@ const Home = () => {
       }
     })();
   }, []);
+
+  const confirmLocation = () => {
+    if (!currentLocation || !destinationLocation) {
+      showToast("Fields cannot be empty", "danger");
+    } else if (currentLocation == destinationLocation) {
+      showToast("current and destination location must be different");
+    }
+  };
 
   return (
     <SafeAreaView className="flex-1 ">
@@ -72,7 +82,7 @@ const Home = () => {
             label="Confirm"
             containerStyles="bg-primary-700 py-4 rounded-md mt-4"
             textStyles="text-center text-shadeWhite font-pmedium"
-            onPressHandler={() => router.push("/bookings")}
+            onPressHandler={confirmLocation}
           />
         </View>
       </View>
