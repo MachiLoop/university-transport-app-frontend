@@ -1,12 +1,12 @@
 const locations = [
   { label: "Tedder Hall", value: "1", name: "Tedder Hall, UI" },
   {
-    label: "Kenneth Mellanby Hall",
+    label: "Mellanby Hall",
     value: "2",
     name: "Kenneth Mellanby Hall, UI",
   },
   { label: "Kuti Hall", value: "3", name: "Kuti Hall, UI" },
-  { label: "Sultan Bello Hall", value: "4", name: "Sultan Bello Hall, UI" },
+  { label: "Bello Hall", value: "4", name: "Sultan Bello Hall, UI" },
   { label: "Queens Hall", value: "5", name: "Queen Elizabeth Hall, UI" },
   { label: "Idia Hall", value: "6", name: "Idia Hall,University of Ibadan" },
   { label: "Zik Hall", value: "7", name: "Nnamdi Azikiwe Hall" },

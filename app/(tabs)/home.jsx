@@ -1,4 +1,13 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Modal,
+  Button,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import ModalCard from "../../components/modalCard";
 import DropdownComponent from "../../components/dropdownComponent";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -7,12 +16,15 @@ import MapViewComponent from "../../components/mapViewComponent";
 import * as Location from "expo-location";
 import useMap from "../../utils/customHooks/useMap";
 import useToastNotification from "../../utils/customHooks/useToastNotification";
+import ModalContent from "../../components/modalContent";
+import { icons } from "../../constants";
 import { router } from "expo-router";
 
 const Home = () => {
   const showToast = useToastNotification();
   const [currentLocation, setCurrentLocation] = useState(null);
   const [destinationLocation, setDestinationLocation] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
   const {
     distance,
     coordinatesA,
@@ -42,6 +54,9 @@ const Home = () => {
       showToast("Fields cannot be empty", "danger");
     } else if (currentLocation == destinationLocation) {
       showToast("current and destination location must be different");
+    } else {
+      // console.log("hello");
+      setModalVisible(true);
     }
   };
 
@@ -86,6 +101,33 @@ const Home = () => {
           />
         </View>
       </View>
+      {modalVisible && (
+        <Modal
+          animationType="slide" // 'slide', 'fade', or 'none'
+          transparent={true} // Makes the background transparent
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)} // Android back button handler
+        >
+          <ModalCard>
+            <ModalContent title="Pickup point" value={curLocMarkerTitle} />
+            <ModalContent title="Destination" value={destLocMarkerTitle} />
+            <ModalContent title="Distance" value={distance.toFixed(2) + "km"} />
+            <ModalContent title="Price" value="NGN 200" />
+            <View className="flex-row justify-between items-center w-full mt-4">
+              <CustomButton
+                label="Cancel"
+                onPressHandler={() => setModalVisible(false)}
+                textStyles="text-center text-error-700 font-pmedium text-lg"
+              />
+              <CustomButton
+                label="Proceed with payment"
+                containerStyles="bg-primary-200 py-3 px-4 rounded-md"
+                textStyles="text-center text-primary-800 font-pmedium"
+              />
+            </View>
+          </ModalCard>
+        </Modal>
+      )}
     </SafeAreaView>
   );
 };

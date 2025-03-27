@@ -8,7 +8,7 @@ import checkmark from "../assets/icons/checkmark.png";
 import copy from "../assets/icons/copy.png";
 import discount from "../assets/icons/discount.png";
 import discountFilled from "../assets/icons/discountFilled.png";
-import downArrow from "../assets/icons/downArrow.png";
+import upCaret from "../assets/icons/upCaret.png";
 import downLeft from "../assets/icons/downLeft.png";
 import eye from "../assets/icons/eye.png";
 import eyeHide from "../assets/icons/eyeHide.png";
@@ -17,7 +17,7 @@ import fuel from "../assets/icons/fuel.png";
 import heart from "../assets/icons/heart.png";
 import home from "../assets/icons/home.png";
 import homeFilled from "../assets/icons/homeFilled.png";
-import leftArrow from "../assets/icons/leftArrow.png";
+import leftCaret from "../assets/icons/leftCaret.png";
 import like from "../assets/icons/like.png";
 import logout from "../assets/icons/logout.png";
 import map from "../assets/icons/map.png";
@@ -39,7 +39,7 @@ import speedometer from "../assets/icons/speedometer.png";
 import sync from "../assets/icons/sync.png";
 import team from "../assets/icons/team.png";
 import telephone from "../assets/icons/telephone.png";
-import upArrow from "../assets/icons/upArrow.png";
+import downCaret from "../assets/icons/downCaret.png";
 import upRightArrow from "../assets/icons/upRightArrow.png";
 import user from "../assets/icons/user.png";
 import userFilled from "../assets/icons/userFilled.png";
@@ -64,7 +64,7 @@ export default {
   copy,
   discount,
   discountFilled,
-  downArrow,
+  downCaret,
   downLeft,
   eye,
   eyeHide,
@@ -73,7 +73,7 @@ export default {
   heart,
   home,
   homeFilled,
-  leftArrow,
+  leftCaret,
   like,
   logout,
   map,
@@ -95,7 +95,7 @@ export default {
   sync,
   team,
   telephone,
-  upArrow,
+  upCaret,
   upRightArrow,
   user,
   userFilled,
