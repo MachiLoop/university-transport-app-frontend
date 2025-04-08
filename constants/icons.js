@@ -31,6 +31,7 @@ import precision from "../assets/icons/precision.png";
 import precision2 from "../assets/icons/precision2.png";
 import question from "../assets/icons/question.png";
 import rightArrow from "../assets/icons/rightArrow.png";
+import rightCaret from "../assets/icons/rightCaret.png";
 import search from "../assets/icons/search.png";
 import send from "../assets/icons/send.png";
 import settings from "../assets/icons/settings.png";
@@ -87,6 +88,7 @@ export default {
   precision2,
   question,
   rightArrow,
+  rightCaret,
   search,
   send,
   settings,
