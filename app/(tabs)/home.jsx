@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Modal,
-  Button,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, Modal, Button, Image } from "react-native";
 import ModalCard from "../../components/modalCard";
 import DropdownComponent from "../../components/dropdownComponent";
 import React, { useEffect, useState } from "react";
@@ -16,12 +8,29 @@ import MapViewComponent from "../../components/mapViewComponent";
 import * as Location from "expo-location";
 import useMap from "../../utils/customHooks/useMap";
 import useToastNotification from "../../utils/customHooks/useToastNotification";
+import usePaystackPayment from "../../utils/customHooks/usePaystackPayment";
 import ModalContent from "../../components/modalContent";
-import { icons } from "../../constants";
-import { router } from "expo-router";
 
 const Home = () => {
   const showToast = useToastNotification();
+  const { startTransaction, PaystackComponent } = usePaystackPayment({
+    amount: "200",
+    onSuccess: (res) => {
+      showToast("Payment Successful", "success");
+      setCurrentLocation(null);
+      setDestinationLocation(null);
+      setCoordinatesA(null);
+      setCoordinatesB(null);
+      setDistance(null);
+      // console.log("coordinatesA " + coordinatesA);
+      // console.log("coordinatesB " + coordinatesB);
+      setModalVisible(false);
+    },
+    onCancel: (e) => {
+      showToast("Payment Cancelled", "danger");
+      setModalVisible(false);
+    },
+  });
   const [currentLocation, setCurrentLocation] = useState(null);
   const [destinationLocation, setDestinationLocation] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -29,6 +38,9 @@ const Home = () => {
     distance,
     coordinatesA,
     coordinatesB,
+    setDistance,
+    setCoordinatesA,
+    setCoordinatesB,
     region,
     curLocMarkerTitle,
     destLocMarkerTitle,
@@ -37,6 +49,8 @@ const Home = () => {
   useEffect(() => {
     console.log(currentLocation);
     console.log(destinationLocation);
+    console.log(coordinatesA);
+    console.log(coordinatesB);
   }, [currentLocation, destinationLocation]);
 
   // Request location permissions
@@ -123,11 +137,13 @@ const Home = () => {
                 label="Proceed with payment"
                 containerStyles="bg-primary-200 py-3 px-4 rounded-md"
                 textStyles="text-center text-primary-800 font-pmedium"
+                onPressHandler={startTransaction}
               />
             </View>
           </ModalCard>
         </Modal>
       )}
+      <PaystackComponent />
     </SafeAreaView>
   );
 };

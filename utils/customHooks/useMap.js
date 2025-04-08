@@ -69,8 +69,11 @@ const useMap = (currentLocation, destinationLocation) => {
 
   return {
     distance,
+    setDistance,
     coordinatesA,
     coordinatesB,
+    setCoordinatesA,
+    setCoordinatesB,
     region,
     curLocMarkerTitle,
     destLocMarkerTitle,
