@@ -1,13 +1,10 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import axios from "axios";
+import { View, Text } from "react-native";
 import { registerUser } from "../../utils/customFunctions/database";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import TextInputForm from "../../components/TextInputForm";
 import { Link, router } from "expo-router";
 import CustomButton from "../../components/customButton";
 import useToastNotification from "../../utils/customHooks/useToastNotification";
-import { useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
 
 const SignUp = () => {
@@ -43,7 +40,7 @@ const SignUp = () => {
       form.password
     );
 
-    console.log(response.status);
+    // console.log(response.status);
 
     if (response.data.errors) {
       setErrors(() => {
