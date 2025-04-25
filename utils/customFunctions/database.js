@@ -22,3 +22,18 @@ export const registerUser = async (fullName, email, password) => {
     return error.response;
   }
 };
+
+export const loginUser = async (email, password) => {
+  let response;
+
+  try {
+    response = await axios.post("http://192.168.212.20:8080/auth/login", {
+      email: email,
+      password: password,
+    });
+
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

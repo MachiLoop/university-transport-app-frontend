@@ -19,7 +19,7 @@ const SignUp = () => {
   const showToast = useToastNotification();
   const router = useRouter();
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     // console.log("hello");
     if (
       !form.fullName ||
@@ -132,7 +132,7 @@ const SignUp = () => {
           label="Sign up"
           containerStyles="bg-primary-700 py-4 rounded-md mt-4"
           textStyles="text-center text-shadeWhite font-pmedium"
-          onPressHandler={handleLogin}
+          onPressHandler={handleSignup}
         />
       </View>
       <View className="flex-row gap-1 mb-12 items-center justify-center ">
