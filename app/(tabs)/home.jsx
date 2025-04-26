@@ -8,13 +8,14 @@ import MapViewComponent from "../../components/mapViewComponent";
 import * as Location from "expo-location";
 import useMap from "../../utils/customHooks/useMap";
 import useToastNotification from "../../utils/customHooks/useToastNotification";
+import { calculatePrice } from "../../utils/customFunctions/calculatePrice";
 import usePaystackPayment from "../../utils/customHooks/usePaystackPayment";
 import ModalContent from "../../components/modalContent";
 
 const Home = () => {
   const showToast = useToastNotification();
   const { startTransaction, PaystackComponent } = usePaystackPayment({
-    amount: "200",
+    amount: calculatePrice(distance),
     onSuccess: (res) => {
       showToast("Payment Successful", "success");
       setCurrentLocation(null);
@@ -126,7 +127,10 @@ const Home = () => {
             <ModalContent title="Pickup point" value={curLocMarkerTitle} />
             <ModalContent title="Destination" value={destLocMarkerTitle} />
             <ModalContent title="Distance" value={distance.toFixed(2) + "km"} />
-            <ModalContent title="Price" value="NGN 200" />
+            <ModalContent
+              title="Price"
+              value={`NGN ${calculatePrice(distance)}`}
+            />
             <View className="flex-row justify-between items-center w-full mt-4">
               <CustomButton
                 label="Cancel"
