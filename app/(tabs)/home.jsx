@@ -9,34 +9,18 @@ import * as Location from "expo-location";
 import useMap from "../../utils/customHooks/useMap";
 import useToastNotification from "../../utils/customHooks/useToastNotification";
 import { calculatePrice } from "../../utils/customFunctions/calculatePrice";
+import { bookTrip } from "../../utils/customFunctions/database";
 import usePaystackPayment from "../../utils/customHooks/usePaystackPayment";
 import ModalContent from "../../components/modalContent";
 
 const Home = () => {
   const showToast = useToastNotification();
-  const { startTransaction, PaystackComponent } = usePaystackPayment({
-    amount: calculatePrice(distance),
-    onSuccess: (res) => {
-      showToast("Payment Successful", "success");
-      setCurrentLocation(null);
-      setDestinationLocation(null);
-      setCoordinatesA(null);
-      setCoordinatesB(null);
-      setDistance(null);
-      // console.log("coordinatesA " + coordinatesA);
-      // console.log("coordinatesB " + coordinatesB);
-      setModalVisible(false);
-    },
-    onCancel: (e) => {
-      showToast("Payment Cancelled", "danger");
-      setModalVisible(false);
-    },
-  });
   const [currentLocation, setCurrentLocation] = useState(null);
   const [destinationLocation, setDestinationLocation] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const {
     distance,
+    price,
     coordinatesA,
     coordinatesB,
     setDistance,
@@ -46,6 +30,43 @@ const Home = () => {
     curLocMarkerTitle,
     destLocMarkerTitle,
   } = useMap(currentLocation, destinationLocation);
+
+  const { startTransaction, PaystackComponent } = usePaystackPayment({
+    amount: price,
+    onSuccess: async (res) => {
+      try {
+        const tripData = {
+          currentLocation: curLocMarkerTitle,
+          destination: destLocMarkerTitle,
+          distance: distance.toFixed(2),
+          price: calculatePrice(distance),
+        };
+
+        const response = await bookTrip(tripData);
+        console.log(response.data);
+
+        // if (response.success) {
+        //   showToast("Payment Successful & Trip Booked!", "success");
+        // } else {
+        //   showToast(response.message || "Failed to book trip", "danger");
+        // }
+      } catch (error) {
+        showToast("An error occurred while booking trip", "danger");
+      } finally {
+        setCurrentLocation(null);
+        setDestinationLocation(null);
+        setCoordinatesA(null);
+        setCoordinatesB(null);
+        setDistance(null);
+        setModalVisible(false);
+      }
+    },
+    onCancel: (e) => {
+      console.log(typeof calculatePrice(distance));
+      showToast("Payment Cancelled", "danger");
+      setModalVisible(false);
+    },
+  });
 
   useEffect(() => {
     console.log(currentLocation);
@@ -127,10 +148,7 @@ const Home = () => {
             <ModalContent title="Pickup point" value={curLocMarkerTitle} />
             <ModalContent title="Destination" value={destLocMarkerTitle} />
             <ModalContent title="Distance" value={distance.toFixed(2) + "km"} />
-            <ModalContent
-              title="Price"
-              value={`NGN ${calculatePrice(distance)}`}
-            />
+            <ModalContent title="Price" value={`NGN ${price}`} />
             <View className="flex-row justify-between items-center w-full mt-4">
               <CustomButton
                 label="Cancel"

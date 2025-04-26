@@ -28,13 +28,35 @@ export const loginUser = async (email, password) => {
   let response;
 
   try {
-    response = await axios.post("http://192.168.212.20:8080/auth/login", {
+    response = await axios.post("http://192.168.212.20:8080/trips/book", {
       email: email,
       password: password,
     });
 
     // Save token
     await AsyncStorage.setItem("authToken", response.data.authToken);
+
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const bookTrip = async (tripData) => {
+  const token = await AsyncStorage.getItem("authToken");
+
+  let response;
+
+  try {
+    response = await axios.post(
+      "http://192.168.212.20:8080/trip/book",
+      tripData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return response;
   } catch (error) {

@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import locations from "../../data/locations";
 import { getCoordinates } from "../customFunctions/getCoordinates";
 import { calculateDistance } from "../customFunctions/calculateDistance";
+import { calculatePrice } from "../customFunctions/calculatePrice";
 
 const useMap = (currentLocation, destinationLocation) => {
   const [coordinatesA, setCoordinatesA] = useState(null);
   const [coordinatesB, setCoordinatesB] = useState(null);
+  const [price, setPrice] = useState(0);
   const [distance, setDistance] = useState(0);
   const [region, setRegion] = useState({
     latitude: 7.4433, // Default center (University of Ibadan)
@@ -42,8 +44,11 @@ const useMap = (currentLocation, destinationLocation) => {
           coordB.latitude,
           coordB.longitude
         );
+        const price = calculatePrice(dist);
         console.log("distance: " + distance);
+        console.log("price: " + price);
         setDistance(dist);
+        setPrice(price);
 
         // Calculate center point
         const midLat = (coordA.latitude + coordB.latitude) / 2;
@@ -69,6 +74,7 @@ const useMap = (currentLocation, destinationLocation) => {
 
   return {
     distance,
+    price,
     setDistance,
     coordinatesA,
     coordinatesB,
