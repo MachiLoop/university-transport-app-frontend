@@ -1,4 +1,5 @@
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const registerUser = async (fullName, email, password) => {
   let response;
@@ -31,6 +32,9 @@ export const loginUser = async (email, password) => {
       email: email,
       password: password,
     });
+
+    // Save token
+    await AsyncStorage.setItem("authToken", response.data.authToken);
 
     return response;
   } catch (error) {

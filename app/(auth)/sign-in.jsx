@@ -8,6 +8,7 @@ import CustomButton from "../../components/customButton";
 import { useWindowDimensions } from "react-native";
 import { loginUser } from "../../utils/customFunctions/database";
 import useToastNotification from "../../utils/customHooks/useToastNotification";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -43,7 +44,9 @@ const SignIn = () => {
       } else {
         showToast(response.data.message, "danger");
       }
-    } else {
+    } else if ((response.status = 200)) {
+      const authToken = await AsyncStorage.getItem("authToken");
+      console.log("Retrieved token:", authToken);
       showToast("Login successful", "success");
       router.replace("/home");
     }
