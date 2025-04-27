@@ -39,17 +39,18 @@ const Home = () => {
           currentLocation: curLocMarkerTitle,
           destination: destLocMarkerTitle,
           distance: distance.toFixed(2),
-          price: calculatePrice(distance),
+          price: price,
         };
 
         const response = await bookTrip(tripData);
         console.log(response.data);
+        console.log(response.status);
 
-        // if (response.success) {
-        //   showToast("Payment Successful & Trip Booked!", "success");
-        // } else {
-        //   showToast(response.message || "Failed to book trip", "danger");
-        // }
+        if ((response.status = 201)) {
+          showToast("Payment Successful & Trip Booked!", "success");
+        } else {
+          showToast(response.data.message || "Failed to book trip", "danger");
+        }
       } catch (error) {
         showToast("An error occurred while booking trip", "danger");
       } finally {
@@ -62,18 +63,10 @@ const Home = () => {
       }
     },
     onCancel: (e) => {
-      console.log(typeof calculatePrice(distance));
       showToast("Payment Cancelled", "danger");
       setModalVisible(false);
     },
   });
-
-  useEffect(() => {
-    console.log(currentLocation);
-    console.log(destinationLocation);
-    console.log(coordinatesA);
-    console.log(coordinatesB);
-  }, [currentLocation, destinationLocation]);
 
   // Request location permissions
   useEffect(() => {

@@ -28,7 +28,7 @@ export const loginUser = async (email, password) => {
   let response;
 
   try {
-    response = await axios.post("http://192.168.212.20:8080/trips/book", {
+    response = await axios.post("http://192.168.212.20:8080/auth/login", {
       email: email,
       password: password,
     });
